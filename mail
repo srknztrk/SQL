@@ -1,0 +1,32 @@
+-- 1. Ödev  bir mail adresinden istenilen datalar
+-- murat.vuranok@bilgeadam.com
+-- 1) isim
+-- 2) soyisim
+-- 3) domain
+-- 4) mail
+
+
+
+
+DECLARE @Mail      NVARCHAR(100) = 'murat.vuranok@bilgeadam.com',
+        @FirstName NVARCHAR(150),
+		@LastName  NVARCHAR(150),
+		@Domain    NVARCHAR(150),
+		@Index1    INT, 
+		@Index2    INT,
+		@Index3    INT;
+		 
+SET @Index1 = CHARINDEX('.' , @Mail); 
+SET @Index2 = CHARINDEX('@' , @Mail); 
+SET @Index3 = CHARINDEX('@' , REVERSE(@Mail))    
+
+SELECT @FirstName = LEFT(@Mail , @Index1 - 1) , 
+       @LastName  = SUBSTRING(@Mail , ( @Index1 + 1 ) , ( @Index2 - ( @Index1 + 1 ))),
+	   @Domain    = RIGHT(@Mail , (@Index3 -1))
+
+
+
+PRINT ( 'Personelin Adı         : ' + @FirstName ); 
+PRINT ( 'Personelin Soyadı      : ' + @LastName ); 
+PRINT ( 'Personelin Mail Adresi : ' + @Mail );
+PRINT ( 'Domain Adresi          : www.' + @Domain);
